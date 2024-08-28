@@ -1,0 +1,31 @@
+type Result_1 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: ModelDetails;
+ };
+type Parameters = 
+ record {
+   maxTokens: nat;
+   temperature: float64;
+ };
+type ModelDetails = 
+ record {
+   description: text;
+   parameters: Parameters;
+ };
+type Model = 
+ record {
+   description: text;
+   id: text;
+   name: text;
+ };
+service : {
+  generateText: (text, text, opt Parameters) -> (Result_1);
+  getModelDetails: (text) -> (Result) query;
+  getModels: () -> (vec Model) query;
+}
