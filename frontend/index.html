@@ -3,31 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Model Hub</title>
+    <title>AI Model Hosting Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .sidebar-item:hover {
             background-color: rgba(139, 92, 246, 0.1);
         }
+        .code-block {
+            background-color: #f7fafc;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .code-block .purple { color: #9061f9; }
+        .code-block .green { color: #48bb78; }
+        .code-block .blue { color: #4299e1; }
+        .code-block .orange { color: #ed8936; }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
         <div class="w-64 bg-white shadow-md">
-            <div class="p-4 flex items-center">
-                <i data-lucide="cpu" class="w-6 h-6 mr-2 text-purple-600"></i>
-                <h1 class="text-xl font-bold">AI Model Hub</h1>
+            <div class="p-4">
+                <h1 class="text-xl font-bold">Hyperbolic</h1>
             </div>
             <nav>
                 <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item" onclick="showHome()">
                     <i data-lucide="home" class="w-5 h-5 mr-3"></i>
                     Home
                 </a>
-                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item bg-purple-100" onclick="showHome()">
+                <a href="#" class="flex items-center p-4 text-purple-600 bg-purple-100 sidebar-item" onclick="showHome()">
                     <i data-lucide="layers" class="w-5 h-5 mr-3"></i>
                     Models
+                </a>
+                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item">
+                    <i data-lucide="cpu" class="w-5 h-5 mr-3"></i>
+                    Rent GPUs
+                </a>
+                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item">
+                    <i data-lucide="hard-drive" class="w-5 h-5 mr-3"></i>
+                    Supply GPUs
+                </a>
+                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item">
+                    <i data-lucide="help-circle" class="w-5 h-5 mr-3"></i>
+                    Support
                 </a>
             </nav>
         </div>
@@ -48,7 +71,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Model cards -->
                     <div class="bg-white p-4 rounded shadow">
-                        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*J_YGztZhPIioQHfG" alt="Llama 3.1405B BASE" class="w-16 h-16 mb-2 rounded object-cover">
+                        <img src="/api/placeholder/100/100" alt="Llama 3.1405B BASE" class="w-16 h-16 mb-2 rounded">
                         <h3 class="font-bold">Llama 3.1405B BASE</h3>
                         <p class="text-sm text-gray-600">High-performance text generation model</p>
                         <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mt-2">BF16</span>
@@ -65,7 +88,7 @@
                         <button class="text-gray-600 mr-4" onclick="showHome()">
                             <i data-lucide="chevron-left" class="w-5 h-5"></i> Go back
                         </button>
-                        <h2 class="text-xl font-semibold" id="modelName">Model Name</h2>
+                        <h2 class="text-xl font-semibold" id="modelName">Llama 3.1405B BASE</h2>
                     </div>
                     <div>
                         <a href="#" class="text-gray-600 mr-4">Docs</a>
@@ -78,14 +101,44 @@
                     <div class="flex justify-between mb-4">
                         <p class="text-gray-600">Try our API</p>
                         <div>
-                            <button class="bg-purple-600 text-white px-4 py-2 rounded mr-2">Demo</button>
-                            <button class="bg-white text-gray-700 px-4 py-2 rounded border">API</button>
+                            <button id="demoBtn" class="bg-purple-600 text-white px-4 py-2 rounded mr-2" onclick="toggleView('demo')">Demo</button>
+                            <button id="apiBtn" class="bg-white text-gray-700 px-4 py-2 rounded border" onclick="toggleView('api')">API</button>
                         </div>
                     </div>
 
-                    <textarea class="w-full h-32 p-2 border rounded mb-4" placeholder="Enter text here and AI will help complete the sentence"></textarea>
+                    <div id="demoView">
+                        <textarea class="w-full h-32 p-2 border rounded mb-4" placeholder="Enter text here and AI will help complete the sentence"></textarea>
+                    </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                    <div id="apiView" class="hidden">
+                        <div class="mb-4">
+                            <button class="text-purple-600 mr-4 pb-2 border-b-2 border-purple-600">Python</button>
+                            <button class="text-gray-400 mr-4 pb-2">TypeScript</button>
+                            <button class="text-gray-400 pb-2">cURL</button>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span></span>
+                            <button class="text-gray-400"><i data-lucide="clipboard" class="w-4 h-4"></i></button>
+                        </div>
+                        <div class="code-block text-sm"><span class="purple">import</span> requests
+url = <span class="green">"https://api.hyperbolic.xyz/v1/completions"</span>
+headers = {
+<span class="green">"Content-Type"</span>: <span class="green">"application/json"</span>,
+<span class="green">"Authorization"</span>: <span class="green">"Bearer $HYPERBOLIC_API_KEY"</span>
+}
+data = {
+<span class="green">"prompt"</span>: <span class="green">"What can I do in LA?"</span>,
+<span class="green">"model"</span>: <span class="green">"meta-llama/Meta-Llama-3.1-405B"</span>,
+<span class="green">"max_tokens"</span>: <span class="blue">512</span>,
+<span class="green">"temperature"</span>: <span class="blue">0.7</span>,
+<span class="green">"top_p"</span>: <span class="blue">0.9</span>
+}
+response = requests.post(url, headers=headers, json=data)
+<span class="purple">print</span>(response.json())
+</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mt-4">
                         <div>
                             <h3 class="font-semibold mb-2">Models</h3>
                             <select class="w-full p-2 border rounded">
@@ -133,6 +186,29 @@
             document.getElementById('homeView').classList.add('hidden');
             document.getElementById('modelView').classList.remove('hidden');
             document.getElementById('modelName').textContent = modelName;
+        }
+
+        function toggleView(view) {
+            const demoView = document.getElementById('demoView');
+            const apiView = document.getElementById('apiView');
+            const demoBtn = document.getElementById('demoBtn');
+            const apiBtn = document.getElementById('apiBtn');
+
+            if (view === 'demo') {
+                demoView.classList.remove('hidden');
+                apiView.classList.add('hidden');
+                demoBtn.classList.add('bg-purple-600', 'text-white');
+                demoBtn.classList.remove('bg-white', 'text-gray-700');
+                apiBtn.classList.add('bg-white', 'text-gray-700');
+                apiBtn.classList.remove('bg-purple-600', 'text-white');
+            } else {
+                apiView.classList.remove('hidden');
+                demoView.classList.add('hidden');
+                apiBtn.classList.add('bg-purple-600', 'text-white');
+                apiBtn.classList.remove('bg-white', 'text-gray-700');
+                demoBtn.classList.add('bg-white', 'text-gray-700');
+                demoBtn.classList.remove('bg-purple-600', 'text-white');
+            }
         }
     </script>
 </body>
