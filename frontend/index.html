@@ -1,13 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Model Hosting Platform</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .sidebar-item:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-md">
+            <div class="p-4">
+                <h1 class="text-xl font-bold">Hyperbolic</h1>
+            </div>
+            <nav>
+                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item" onclick="showHome()">
+                    <i data-lucide="home" class="w-5 h-5 mr-3"></i>
+                    Home
+                </a>
+                <a href="#" class="flex items-center p-4 text-gray-700 sidebar-item bg-purple-100" onclick="showHome()">
+                    <i data-lucide="layers" class="w-5 h-5 mr-3"></i>
+                    Models
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 p-6 overflow-y-auto">
+            <!-- Home/Models List View -->
+            <div id="homeView">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Models</h2>
+                    <div>
+                        <a href="#" class="text-gray-600 mr-4">Docs</a>
+                        <a href="#" class="text-gray-600 mr-4">Pricing</a>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Model cards -->
+                    <div class="bg-white p-4 rounded shadow">
+                        <img src="/api/placeholder/100/100" alt="Llama 3.1405B BASE" class="w-16 h-16 mb-2 rounded">
+                        <h3 class="font-bold">Llama 3.1405B BASE</h3>
+                        <p class="text-sm text-gray-600">High-performance text generation model</p>
+                        <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mt-2">BF16</span>
+                        <button onclick="showModelInterface('Llama 3.1405B BASE')" class="mt-2 text-purple-600 hover:underline">Try it</button>
+                    </div>
+                    <!-- Add more model cards as needed -->
+                </div>
+            </div>
+
+            <!-- Model Interface View -->
+            <div id="modelView" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <button class="text-gray-600 mr-4" onclick="showHome()">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i> Go back
+                        </button>
+                        <h2 class="text-xl font-semibold" id="modelName">Model Name</h2>
+                    </div>
+                    <div>
+                        <a href="#" class="text-gray-600 mr-4">Docs</a>
+                        <a href="#" class="text-gray-600 mr-4">Pricing</a>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between mb-4">
+                        <p class="text-gray-600">Try our API</p>
+                        <div>
+                            <button class="bg-purple-600 text-white px-4 py-2 rounded mr-2">Demo</button>
+                            <button class="bg-white text-gray-700 px-4 py-2 rounded border">API</button>
+                        </div>
+                    </div>
+
+                    <textarea class="w-full h-32 p-2 border rounded mb-4" placeholder="Enter text here and AI will help complete the sentence"></textarea>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-semibold mb-2">Models</h3>
+                            <select class="w-full p-2 border rounded">
+                                <option>Llama 3.1405B BASE (new)</option>
+                            </select>
+                            <div class="mt-2 text-sm text-gray-600">
+                                BF16 | Context length: 32k tokens
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Max Tokens</h3>
+                            <input type="range" class="w-full" min="0" max="1000" value="512" oninput="this.nextElementSibling.textContent=this.value">
+                            <div class="text-right">512</div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Temperature</h3>
+                            <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.7" oninput="this.nextElementSibling.textContent=this.value">
+                            <div class="text-right">0.7</div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Top P</h3>
+                            <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.9" oninput="this.nextElementSibling.textContent=this.value">
+                            <div class="text-right">0.9</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="font-semibold mb-2">System Prompt</h3>
+                        <textarea class="w-full h-24 p-2 border rounded" placeholder="Describe your system prompt here"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function showHome() {
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('modelView').classList.add('hidden');
+        }
+
+        function showModelInterface(modelName) {
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('modelView').classList.remove('hidden');
+            document.getElementById('modelName').textContent = modelName;
+        }
+    </script>
+</body>
 </html>
