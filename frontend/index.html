@@ -54,73 +54,73 @@
                 </a>
             </nav>
         </div>
-
         <!-- Main content -->
-        <div class="flex-1 p-6 overflow-y-auto">
-            <!-- Home/Models List View -->
-            <div id="homeView">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">Models</h2>
-                    <div>
-                        <a href="#" class="text-gray-600 mr-4">Docs</a>
-                        <a href="#" class="text-gray-600 mr-4">Pricing</a>
-                        <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Model cards -->
-                    <div class="bg-white p-4 rounded shadow">
-                        <img src="https://img.freepik.com/premium-photo/cartoon-llama-with-colorful-blanket-white-background-generative-ai_974539-55700.jpg?w=1480" alt="Llama 3.1405B BASE" class="w-16 h-16 mb-2 rounded object-cover">
-                        <h3 class="font-bold">Llama 3.1405B BASE</h3>
-                        <p class="text-sm text-gray-600">High-performance text generation model</p>
-                        <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mt-2">BF16</span>
-                        <button onclick="showModelInterface('Llama 3.1405B BASE')" class="mt-2 text-purple-600 hover:underline">Try it</button>
-                    </div>
-                    <!-- Add more model cards as needed -->
+    <div class="flex-1 p-6 overflow-y-auto">
+        <!-- Home/Models List View -->
+        <div id="homeView">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Models</h2>
+                <div>
+                    <a href="#" class="text-gray-600 mr-4">Docs</a>
+                    <a href="#" class="text-gray-600 mr-4">Pricing</a>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
                 </div>
             </div>
 
-            <!-- Model Interface View -->
-            <div id="modelView" class="hidden">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="flex items-center">
-                        <button class="text-gray-600 mr-4" onclick="showHome()">
-                            <i data-lucide="chevron-left" class="w-5 h-5"></i> Go back
-                        </button>
-                        <h2 class="text-xl font-semibold" id="modelName">Llama 3.1405B BASE</h2>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Model cards -->
+                <div class="bg-white p-4 rounded shadow">
+                    <img src="/api/placeholder/100/100" alt="Llama 3.1405B BASE" class="w-16 h-16 mb-2 rounded">
+                    <h3 class="font-bold">Llama 3.1405B BASE</h3>
+                    <p class="text-sm text-gray-600">High-performance text generation model</p>
+                    <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mt-2">BF16</span>
+                    <button onclick="showModelInterface('Llama 3.1405B BASE')" class="mt-2 text-purple-600 hover:underline">Try it</button>
+                </div>
+                <!-- Add more model cards as needed -->
+            </div>
+        </div>
+
+        <!-- Model Interface View -->
+        <div id="modelView" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center">
+                    <button class="text-gray-600 mr-4" onclick="showHome()">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i> Go back
+                    </button>
+                    <h2 class="text-xl font-semibold" id="modelName">Llama 3.1405B BASE</h2>
+                </div>
+                <div>
+                    <a href="#" class="text-gray-600 mr-4">Docs</a>
+                    <a href="#" class="text-gray-600 mr-4">Pricing</a>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex justify-between mb-4">
+                    <p class="text-gray-600">Try our API</p>
                     <div>
-                        <a href="#" class="text-gray-600 mr-4">Docs</a>
-                        <a href="#" class="text-gray-600 mr-4">Pricing</a>
-                        <button class="bg-purple-600 text-white px-4 py-2 rounded">Log In</button>
+                        <button id="demoBtn" class="bg-purple-600 text-white px-4 py-2 rounded mr-2" onclick="toggleView('demo')">Demo</button>
+                        <button id="apiBtn" class="bg-white text-gray-700 px-4 py-2 rounded border" onclick="toggleView('api')">API</button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow p-6">
-                    <div class="flex justify-between mb-4">
-                        <p class="text-gray-600">Try our API</p>
-                        <div>
-                            <button id="demoBtn" class="bg-purple-600 text-white px-4 py-2 rounded mr-2" onclick="toggleView('demo')">Demo</button>
-                            <button id="apiBtn" class="bg-white text-gray-700 px-4 py-2 rounded border" onclick="toggleView('api')">API</button>
-                        </div>
-                    </div>
+                <div id="demoView">
+                    <textarea class="w-full h-32 p-2 border rounded mb-4" placeholder="Enter text here and AI will help complete the sentence"></textarea>
+                </div>
 
-                    <div id="demoView">
-                        <textarea class="w-full h-32 p-2 border rounded mb-4" placeholder="Enter text here and AI will help complete the sentence"></textarea>
+                <div id="apiView" class="hidden">
+                    <div class="mb-4">
+                        <button onclick="showCode('python')" class="text-purple-600 mr-4 pb-2 border-b-2 border-purple-600">Python</button>
+                        <button onclick="showCode('typescript')" class="text-gray-400 mr-4 pb-2">TypeScript</button>
+                        <button onclick="showCode('curl')" class="text-gray-400 pb-2">cURL</button>
                     </div>
-
-                    <div id="apiView" class="hidden">
-                        <div class="mb-4">
-                            <button class="text-purple-600 mr-4 pb-2 border-b-2 border-purple-600">Python</button>
-                            <button class="text-gray-400 mr-4 pb-2">TypeScript</button>
-                            <button class="text-gray-400 pb-2">cURL</button>
-                        </div>
-                        <div class="flex justify-between items-center mb-2">
-                            <span></span>
-                            <button class="text-gray-400"><i data-lucide="clipboard" class="w-4 h-4"></i></button>
-                        </div>
-                        <div class="code-block text-sm"><span class="purple">import</span> requests
+                    <div class="flex justify-between items-center mb-2">
+                        <span></span>
+                        <button class="text-gray-400"><i data-lucide="clipboard" class="w-4 h-4"></i></button>
+                    </div>
+                    <div id="pythonCode" class="code-block text-sm">
+                        <span class="purple">import</span> requests
 url = <span class="green">"https://api.hyperbolic.xyz/v1/completions"</span>
 headers = {
 <span class="green">"Content-Type"</span>: <span class="green">"application/json"</span>,
@@ -136,80 +136,131 @@ data = {
 response = requests.post(url, headers=headers, json=data)
 <span class="purple">print</span>(response.json())
 </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <h3 class="font-semibold mb-2">Models</h3>
-                            <select class="w-full p-2 border rounded">
-                                <option>Llama 3.1405B BASE (new)</option>
-                            </select>
-                            <div class="mt-2 text-sm text-gray-600">
-                                BF16 | Context length: 32k tokens
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold mb-2">Max Tokens</h3>
-                            <input type="range" class="w-full" min="0" max="1000" value="512" oninput="this.nextElementSibling.textContent=this.value">
-                            <div class="text-right">512</div>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold mb-2">Temperature</h3>
-                            <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.7" oninput="this.nextElementSibling.textContent=this.value">
-                            <div class="text-right">0.7</div>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold mb-2">Top P</h3>
-                            <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.9" oninput="this.nextElementSibling.textContent=this.value">
-                            <div class="text-right">0.9</div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <h3 class="font-semibold mb-2">System Prompt</h3>
-                        <textarea class="w-full h-24 p-2 border rounded" placeholder="Describe your system prompt here"></textarea>
-                    </div>
-                </div>
-            </div>
+<div id="typescriptCode" class="code-block text-sm hidden">
+<span class="purple">const</span> url = <span class="green">'https://api.hyperbolic.xyz/v1/completions'</span>;
+<span class="purple">const</span> response = <span class="purple">await</span> fetch(url, {
+method: <span class="green">'POST'</span>,
+headers: {
+<span class="green">'Content-Type'</span>: <span class="green">'application/json'</span>,
+Authorization: <span class="green">'Bearer $HYPERBOLIC_API_KEY'</span>,
+},
+body: JSON.stringify({
+model: <span class="green">'meta-llama/Meta-Llama-3.1-405B'</span>,
+prompt: <span class="green">'What can I do in LA?'</span>,
+max_tokens: <span class="blue">512</span>,
+temperature: <span class="blue">0.7</span>,
+top_p: <span class="blue">0.9</span>,
+stream: <span class="purple">false</span>
+}),
+});
+<span class="purple">const</span> json = <span class="purple">await</span> response.json();
+<span class="purple">const</span> output = json.choices[<span class="blue">0</span>].text;
+console.log(output);
+</div>
+<div id="curlCode" class="code-block text-sm hidden">
+curl -X POST "https://api.hyperbolic.xyz/v1/completions" 
+-H "Content-Type: application/json" 
+-H "Authorization: Bearer $HYPERBOLIC_API_KEY" 
+--data-raw '{
+"prompt": "What can I do in LA?",
+"model": "meta-llama/Meta-Llama-3.1-405B",
+"max_tokens": 512,
+"temperature": 0.7,
+"top_p": 0.9,
+"stream": false
+}'
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-4">
+    <div>
+        <h3 class="font-semibold mb-2">Models</h3>
+        <select class="w-full p-2 border rounded">
+            <option>Llama 3.1405B BASE (new)</option>
+        </select>
+        <div class="mt-2 text-sm text-gray-600">
+            BF16 | Context length: 32k tokens
         </div>
     </div>
+    <div>
+        <h3 class="font-semibold mb-2">Max Tokens</h3>
+        <input type="range" class="w-full" min="0" max="1000" value="512" oninput="this.nextElementSibling.textContent=this.value">
+        <div class="text-right">512</div>
+    </div>
+    <div>
+        <h3 class="font-semibold mb-2">Temperature</h3>
+        <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.7" oninput="this.nextElementSibling.textContent=this.value">
+        <div class="text-right">0.7</div>
+    </div>
+    <div>
+        <h3 class="font-semibold mb-2">Top P</h3>
+        <input type="range" class="w-full" min="0" max="1" step="0.1" value="0.9" oninput="this.nextElementSibling.textContent=this.value">
+        <div class="text-right">0.9</div>
+    </div>
+</div>
 
-    <script>
-        lucide.createIcons();
+<div class="mt-4">
+    <h3 class="font-semibold mb-2">System Prompt</h3>
+    <textarea class="w-full h-24 p-2 border rounded" placeholder="Describe your system prompt here"></textarea>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-        function showHome() {
-            document.getElementById('homeView').classList.remove('hidden');
-            document.getElementById('modelView').classList.add('hidden');
-        }
+<script>
+lucide.createIcons();
 
-        function showModelInterface(modelName) {
-            document.getElementById('homeView').classList.add('hidden');
-            document.getElementById('modelView').classList.remove('hidden');
-            document.getElementById('modelName').textContent = modelName;
-        }
+function showHome() {
+document.getElementById('homeView').classList.remove('hidden');
+document.getElementById('modelView').classList.add('hidden');
+}
 
-        function toggleView(view) {
-            const demoView = document.getElementById('demoView');
-            const apiView = document.getElementById('apiView');
-            const demoBtn = document.getElementById('demoBtn');
-            const apiBtn = document.getElementById('apiBtn');
+function showModelInterface(modelName) {
+document.getElementById('homeView').classList.add('hidden');
+document.getElementById('modelView').classList.remove('hidden');
+document.getElementById('modelName').textContent = modelName;
+}
 
-            if (view === 'demo') {
-                demoView.classList.remove('hidden');
-                apiView.classList.add('hidden');
-                demoBtn.classList.add('bg-purple-600', 'text-white');
-                demoBtn.classList.remove('bg-white', 'text-gray-700');
-                apiBtn.classList.add('bg-white', 'text-gray-700');
-                apiBtn.classList.remove('bg-purple-600', 'text-white');
-            } else {
-                apiView.classList.remove('hidden');
-                demoView.classList.add('hidden');
-                apiBtn.classList.add('bg-purple-600', 'text-white');
-                apiBtn.classList.remove('bg-white', 'text-gray-700');
-                demoBtn.classList.add('bg-white', 'text-gray-700');
-                demoBtn.classList.remove('bg-purple-600', 'text-white');
-            }
-        }
-    </script>
+function toggleView(view) {
+const demoView = document.getElementById('demoView');
+const apiView = document.getElementById('apiView');
+const demoBtn = document.getElementById('demoBtn');
+const apiBtn = document.getElementById('apiBtn');
+
+if (view === 'demo') {
+demoView.classList.remove('hidden');
+apiView.classList.add('hidden');
+demoBtn.classList.add('bg-purple-600', 'text-white');
+demoBtn.classList.remove('bg-white', 'text-gray-700');
+apiBtn.classList.add('bg-white', 'text-gray-700');
+apiBtn.classList.remove('bg-purple-600', 'text-white');
+} else {
+apiView.classList.remove('hidden');
+demoView.classList.add('hidden');
+apiBtn.classList.add('bg-purple-600', 'text-white');
+apiBtn.classList.remove('bg-white', 'text-gray-700');
+demoBtn.classList.add('bg-white', 'text-gray-700');
+demoBtn.classList.remove('bg-purple-600', 'text-white');
+}
+}
+
+function showCode(language) {
+const codeBlocks = ['pythonCode', 'typescriptCode', 'curlCode'];
+const buttons = document.querySelectorAll('#apiView > div > button');
+
+codeBlocks.forEach(block => {
+document.getElementById(block).classList.add('hidden');
+});
+
+buttons.forEach(button => {
+button.classList.remove('text-purple-600', 'border-b-2', 'border-purple-600');
+button.classList.add('text-gray-400');
+});
+
+document.getElementById(`${language}Code`).classList.remove('hidden');
+event.target.classList.add('text-purple-600', 'border-b-2', 'border-purple-600');
+event.target.classList.remove('text-gray-400');
+}
+</script>
 </body>
 </html>
